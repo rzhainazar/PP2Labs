@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Week3_Labs3
+namespace Lab2_1
 {
     class Program
     {
