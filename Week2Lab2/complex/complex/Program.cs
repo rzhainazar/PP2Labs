@@ -12,14 +12,14 @@ namespace complex
     {
         static void f1(Complex ans)
         {
-            FileStream fs = new FileStream(@"C:\Raiymbek\PP2Labs\Week2Lab2\complex\data.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream fs = new FileStream(@"C:\Raiymbek\PP2Labs\Week2Lab2\complex\data.ser", FileMode.OpenOrCreate, FileAccess.ReadWrite);
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(fs, ans);
             fs.Close();
         }
         static Complex f2()
         {
-            FileStream fs = new FileStream(@"C:\Raiymbek\PP2Labs\Week2Lab2\complex\data.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream fs = new FileStream(@"C:\Raiymbek\PP2Labs\Week2Lab2\complex\data.ser", FileMode.OpenOrCreate, FileAccess.ReadWrite);
             BinaryFormatter bf = new BinaryFormatter();
             Complex ans = bf.Deserialize(fs) as Complex;
             fs.Close();
@@ -29,6 +29,7 @@ namespace complex
         {
             Complex ans = new Complex(); ;
             Complex k = new Complex(0, 1);
+           // f1(k);
             ans = f2();
             Console.WriteLine(ans);
             string x = Console.ReadLine();
