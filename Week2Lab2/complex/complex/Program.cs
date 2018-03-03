@@ -13,9 +13,9 @@ namespace complex
         static void f1(Complex ans)
         {
             FileStream fs = new FileStream(@"C:\Raiymbek\PP2Labs\Week2Lab2\complex\data.ser", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            BinaryFormatter bf = new BinaryFormatter();
+            BinaryFormatter bf = new BinaryFormatter();//формат в которой файл сериализуется 
             bf.Serialize(fs, ans);
-            fs.Close();
+            fs.Close();//закрыть поток
         }
         static Complex f2()
         {
@@ -27,7 +27,7 @@ namespace complex
         }
         static void Main(string[] args)
         {
-            Complex ans = new Complex(); ;
+            Complex ans = new Complex(); 
             Complex k = new Complex(0, 1);
            // f1(k);
             ans = f2();

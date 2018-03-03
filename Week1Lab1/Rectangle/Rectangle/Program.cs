@@ -44,8 +44,8 @@ namespace Rectangle
     {
         static void Main(string[] args)
         {
-            string s = Console.ReadLine();
-            string[] par = s.Split(' ');
+            //string s = Console.ReadLine();
+            //string[] par = s.Split(' ');
             int a = int.Parse(par[0]);
             int b = int.Parse(par[1]);
 

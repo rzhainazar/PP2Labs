@@ -16,7 +16,7 @@ namespace Student
         {
             name = "Raiymbek";
             age = 17;
-            GPA = 3.3;
+            GPA = 3.0;
         }
 
         public Student(string name, int age, double GPA)
@@ -34,7 +34,7 @@ namespace Student
     {
         static void Main(string[] args)
         {
-            Student s = new Student("Raiym", 43, 3.3);
+            Student s = new Student("Raim",57, 3.2);
             Console.WriteLine(s);
             Console.ReadKey();
         }

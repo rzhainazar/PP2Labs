@@ -20,7 +20,7 @@ namespace complex
             c1 = _c1;
             c2 = _c2;
         }
-        public static int gcd(int a, int b)
+        public static int gcd(int a, int b)//чтобы найти нод
         {
             if (b != 0)
                 return gcd(b, a % b);
@@ -53,7 +53,7 @@ namespace complex
             Complex c = new Complex(a.c1 * b.c2, a.c2 * b.c1);
             return c;
         }
-        public void Simplify()
+        public void Simplify()//упращать два рациональных числа
         {
             int Del = gcd(c1, c2);
             c1 /= Del;

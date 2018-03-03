@@ -14,12 +14,11 @@ namespace Circle
 
         public Circle()
         {
-            r = 1;
+            r = 1; ;
         }
-
-        public Circle(int a)
+        public Circle(int r)
         {
-            r = a;
+            this.r = r;
         }
 
         public void FindArea()
@@ -42,8 +41,8 @@ namespace Circle
     {
         static void Main(string[] args)
         {
-            int k = int.Parse(Console.ReadLine());
-            Circle c = new Circle(k);
+           // int k = int.Parse(Console.ReadLine());
+            Circle c = new Circle();
 
             c.FindArea();
             c.FindDiameter();
