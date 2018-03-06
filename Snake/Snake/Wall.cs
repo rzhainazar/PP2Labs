@@ -18,7 +18,7 @@ namespace Snake
         {
             Console.Clear();
             body.Clear();
-            string path = @"C:\Users\Адиль\Desktop\Snake\Levels\Level";
+            string path = @"C:\Raiymbek\PP2Labs\Snake\Levels\Level";
             path += level.ToString() + ".txt";
             StreamReader sr = new StreamReader(path);
             for (int i = 0; i < 23; i++)

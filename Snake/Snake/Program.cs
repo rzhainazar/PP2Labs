@@ -10,13 +10,9 @@ namespace Snake
 {
     class Program
     {
-        public static string login;
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Write your login : ");
-            login = Console.ReadLine();
             Console.Clear();
             Menu menu = new Menu();
             menu.OpenMenu();

@@ -20,7 +20,7 @@ namespace Snake
         public static ConsoleColor snakeHeadColor = ConsoleColor.Yellow;
         public void MoveSnakeThread()
         {
-            int speedReturn = speed;
+            speed = 200;
             playGame = true;
             Console.SetWindowSize(100, 31);
             food.x = 10;
@@ -31,23 +31,8 @@ namespace Snake
             Console.SetCursorPosition(10, 10);
             Console.Write('@');
             Console.ForegroundColor = ConsoleColor.Black;
-            int pos = -1;
-            while (playGame)
+            while (playGame == true)
             {
-                for (int i = 0; i < highScores.name.Count; i++)
-                {
-                    if (highScores.name[i] == Program.login)
-                    {
-                        pos = i;
-                        break;
-                    }
-                }
-                if (pos == -1)
-                {
-                    highScores.name.Add(Program.login);
-                    highScores.score.Add(0);
-                    pos = highScores.name.Count - 1;
-                }
                 moovable = false;
                 if (snake.body[0].x == food.x && snake.body[0].y == food.y)
                 {
@@ -57,8 +42,7 @@ namespace Snake
                     moovable = true;
                     speed = Math.Max(100, speed - 10);
                 }
-                highScores.score[pos] = Math.Max(score + sc, highScores.score[pos]);
-                if (score == 5 && levelCount < maxLevel)
+                if (score == 5 && levelCount == 1)
                 {
                     x = 1;
                     y = 0;
@@ -69,31 +53,24 @@ namespace Snake
                     snake.body.Add(new Point(4, 3));
                     snake.body.Add(new Point(3, 3));
                     snake.body.Add(new Point(2, 3));
-                    score = 0;
-                    sc = levelCount * 5 - 5;
                 }
-                if (score == 5 && levelCount == maxLevel)
+                if (score == 10)
                 {
                     Console.Clear();
                     Console.SetCursorPosition(0, 0);
                     Console.Write("Your score is : ");
                     Console.WriteLine(score + sc);
-                    Console.Write("Your maximail score is : ");
-                    Console.WriteLine(highScores.score[pos]);
                     Console.WriteLine("Press escape to continue");
                     Console.ForegroundColor = ConsoleColor.Black;
-                    //Console.ReadKey();
                     break;
                 }
-                if (snake.CheckGame(wall.body))
+                if (snake.CheckGame(wall.body) == true)
                 {
                     Console.Clear();
                     playGame = false;
                     Console.SetCursorPosition(0, 0);
                     Console.Write("Your score is : ");
                     Console.WriteLine(score + sc);
-                    Console.Write("Your maximail score is : ");
-                    Console.WriteLine(highScores.score[pos]);
                     Console.WriteLine("Press escape to continue");
                     Console.ForegroundColor = ConsoleColor.Black;
                     break;
@@ -110,55 +87,16 @@ namespace Snake
                 snake.Draw();
                 Thread.Sleep(speed);
             }
-            SaveHighScore(highScores);
-            speed = speedReturn;
         }
-        public static HighScores ShowLeaderBoard()
-        {
-            FileStream fs = new FileStream(@"C:\Users\Адиль\Desktop\PP2_LABS\Snake\Snake\data.ser", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            BinaryFormatter bf = new BinaryFormatter();
-            HighScores highScores = bf.Deserialize(fs) as HighScores;
-            fs.Close();
-            return highScores;
-        }
-        public void SaveHighScore(HighScores highScores)
-        {
-            FileStream fs = new FileStream(@"C:\Users\Адиль\Desktop\PP2_LABS\Snake\Snake\data.ser", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fs, highScores);
-            fs.Close();
-        }
-        public HighScores Sort(HighScores highScores)
-        {
-            for (int i = 0; i < highScores.name.Count - 1; i++)
-            {
-                for (int j = i + 1; j < highScores.name.Count; j++)
-                    if (highScores.score[i] < highScores.score[j])
-                    {
-                        string a = highScores.name[i];
-                        int b = highScores.score[i];
-                        highScores.name[i] = highScores.name[j];
-                        highScores.score[i] = highScores.score[j];
-                        highScores.name[j] = a;
-                        highScores.score[j] = b;
-                    }
-            }
-            return highScores;
-        }
-        public static HighScores highScores = ShowLeaderBoard();
         public void OpenMenu()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(@"C:\Users\Адиль\Desktop\PP2_LABS\Snake\Levels");
-            maxLevel = directoryInfo.GetFileSystemInfos().Length;
             int cursor = 0;
             List<string> menu = new List<string>();
             menu.Add("Start game");
-            menu.Add("Leader board");
-            menu.Add("Choose difficulty level");
             menu.Add("Exit");
             while (true)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     if (i == cursor)
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -172,11 +110,11 @@ namespace Snake
                 if (key.Key == ConsoleKey.DownArrow)
                     cursor++;
                 if (cursor == -1)
-                    cursor = 3;
-                if (cursor == 4)
+                    cursor = 1;
+                if (cursor == 2)
                     cursor = 0;
                 Console.Clear();
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     if (i == cursor)
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -188,73 +126,6 @@ namespace Snake
                 if (key.Key == ConsoleKey.Enter)
                 {
                     if (cursor == 1)
-                    {
-                        highScores = Sort(highScores);
-                        for (int i = 0; i < highScores.name.Count; i++)
-                        {
-                            Console.Write(highScores.name[i]);
-                            Console.Write(" - ");
-                            Console.WriteLine(highScores.score[i]);
-                        }
-                        while(true)
-                        {
-                            ConsoleKeyInfo k = Console.ReadKey();
-                            if (k.Key == ConsoleKey.Escape)
-                            {
-                                Console.Clear();
-                                break;
-                            }
-                        }
-                    }
-                    if (cursor == 2)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Press button to choose difficulty level");
-                        Console.Write("Easy   : ");
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.Write("OO");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("O");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("  --->  Q");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("Normal : ");
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write("OO");
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.Write("O");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("  --->  W");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("Hard   : ");
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write("OO");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("O");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("  --->  E");
-                        ConsoleKeyInfo k = Console.ReadKey();
-                        if (k.Key == ConsoleKey.Q)
-                        {
-                            snakeBodyColor = ConsoleColor.Gray;
-                            snakeHeadColor = ConsoleColor.Yellow;
-                            speed = 200;
-                        }
-                        if (k.Key == ConsoleKey.W)
-                        {
-                            snakeBodyColor = ConsoleColor.Cyan;
-                            snakeHeadColor = ConsoleColor.Magenta;
-                            speed = 180;
-                        }
-                        if (k.Key == ConsoleKey.E)
-                        {
-                            snakeBodyColor = ConsoleColor.DarkCyan;
-                            snakeHeadColor = ConsoleColor.Green;
-                            speed = 160;
-                        }
-                        Console.Clear();
-                    }
-                    if (cursor == 3)
                     {
                         break;
                     }

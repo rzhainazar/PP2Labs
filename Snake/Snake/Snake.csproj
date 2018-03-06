@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="highScores.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Snake.cs" />
     <Compile Include="Food.cs" />

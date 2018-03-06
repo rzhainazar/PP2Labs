@@ -47,21 +47,10 @@ namespace Snake
             Console.SetCursorPosition(body[0].x, body[0].y);
             Console.ForegroundColor = Menu.snakeHeadColor;
             Console.Write('O');
-            /*int i = 0;
-            foreach (Point point in body)
-            {
-                if (i == 0)
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                else
-                    Console.ForegroundColor = ConsoleColor.Black;
-                Console.SetCursorPosition(point.x, point.y);
-                i = 1;
-                Console.WriteLine('O');
-            }*/
         }
         public void AddToBody()
         {
-            Point p = new Point(body[body.Count - 1].x, body[body.Count - 1].y);
+            Point p = new Point(body[body.Count - 1].x, body[body.Count - 1].y);//еще раз добавляем последнее значение 
             body.Add(p);
         }
         public bool CheckGame(List<Point> body1)
